@@ -2,23 +2,29 @@ import java.util.*;
 public class Palindrome
 {
     static void main() {
-       Scanner sc=new Scanner(System.in);
-        System.out.print("Input String: ");
-        String str = sc.next();
-        String rev = "";
+        String input = "deified";
 
-        for (int i = str.length() - 1; i >= 0; i--) {
-            rev = rev + str.charAt(i);
+        char[] charArray = input.toCharArray();
+
+        boolean isPalindrome = true;
+
+        int left = 0;
+        int right = charArray.length - 1;
+
+        while (left < right) {
+
+            if (charArray[left] != charArray[right]) {
+                isPalindrome = false;
+                break;
+            }
+            left++;
+            right--;
         }
 
-        System.out.println("Reversed string: " + rev);
-
-        if (str.equals(rev)) {
-            System.out.println("The string is a Palindrome");
+        if (isPalindrome) {
+            System.out.println("'" + input + "' is a palindrome.");
         } else {
-            System.out.println("The string is NOT a Palindrome");
+            System.out.println("'" + input + "' is not a palindrome.");
         }
-
-        sc.close();
     }
 }
