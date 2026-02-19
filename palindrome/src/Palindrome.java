@@ -1,8 +1,17 @@
 public class Palindrome
 {
     static void main() {
-        System.out.println("Welcome to the Palindrome checker management system.");
-        System.out.println("Verion : 1.0");
-        System.out.println("System Initialized Successfully.");
+        String str = "madam";
+        String reversed = "";
+
+        for (int i = str.length() - 1; i >= 0; i--) {
+            reversed += str.charAt(i);
+        }
+
+        if (str.equals(reversed)) {
+            System.out.println("The string \"" + str + "\" is a Palindrome .");
+        } else {
+            System.out.println("The string \"" + str + "\" is NOT a Palindrome.");
+        }
     }
 }
