@@ -9,7 +9,7 @@ public class Palindrome
         }
 
         if (str.equals(reversed)) {
-            System.out.println("The string \"" + str + "\" is a Palindrome.");
+            System.out.println("The string \"" + str + "\" is a Palindrome .");
         } else {
             System.out.println("The string \"" + str + "\" is NOT a Palindrome.");
         }
