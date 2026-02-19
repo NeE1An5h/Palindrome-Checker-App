@@ -1,17 +1,24 @@
+import java.util.*;
 public class Palindrome
 {
     static void main() {
-        String str = "madam";
-        String reversed = "";
+       Scanner sc=new Scanner(System.in);
+        System.out.print("Input String: ");
+        String str = sc.next();
+        String rev = "";
 
         for (int i = str.length() - 1; i >= 0; i--) {
-            reversed += str.charAt(i);
+            rev = rev + str.charAt(i);
         }
 
-        if (str.equals(reversed)) {
-            System.out.println("The string \"" + str + "\" is a Palindrome .");
+        System.out.println("Reversed string: " + rev);
+
+        if (str.equals(rev)) {
+            System.out.println("The string is a Palindrome");
         } else {
-            System.out.println("The string \"" + str + "\" is NOT a Palindrome.");
+            System.out.println("The string is NOT a Palindrome");
         }
+
+        sc.close();
     }
 }
