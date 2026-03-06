@@ -1,30 +1,31 @@
-import java.util.*;
-public class Palindrome
-{
-    static void main() {
-        String input = "deified";
+import java.util.Scanner;
+import java.util.Stack;
 
-        char[] charArray = input.toCharArray();
+    public class Palindrome
+    {
 
-        boolean isPalindrome = true;
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Stack<Character> stack = new Stack<>();
 
-        int left = 0;
-        int right = charArray.length - 1;
+        System.out.print("Enter a string: ");
+        String input = sc.nextLine();
 
-        while (left < right) {
-
-            if (charArray[left] != charArray[right]) {
-                isPalindrome = false;
-                break;
-            }
-            left++;
-            right--;
+        for (int i = 0; i < input.length(); i++) {
+            stack.push(input.charAt(i));
         }
 
-        if (isPalindrome) {
-            System.out.println("'" + input + "' is a palindrome.");
+        String reversed = "";
+        while (!stack.isEmpty()) {
+            reversed += stack.pop();
+        }
+
+        if (input.equals(reversed)) {
+            System.out.println("The string is a Palindrome.");
         } else {
-            System.out.println("'" + input + "' is not a palindrome.");
+            System.out.println("The string is NOT a Palindrome.");
         }
+
+        sc.close();
     }
 }
