@@ -1,11 +1,8 @@
 import java.util.*;
 
-interface PalindromeStrategy {
-    boolean check(String s);
-}
+public class Palindrome {
 
-class StackStrategy implements PalindromeStrategy {
-    public boolean check(String s) {
+    static boolean stackCheck(String s) {
         Stack<Character> stack = new Stack<>();
         String rev = "";
 
@@ -17,10 +14,8 @@ class StackStrategy implements PalindromeStrategy {
 
         return s.equals(rev);
     }
-}
 
-class DequeStrategy implements PalindromeStrategy {
-    public boolean check(String s) {
+    static boolean dequeCheck(String s) {
         Deque<Character> deque = new ArrayDeque<>();
 
         for (int i = 0; i < s.length(); i++)
@@ -32,31 +27,45 @@ class DequeStrategy implements PalindromeStrategy {
 
         return true;
     }
-}
 
-public class Palindrome {
+    static boolean recursiveCheck(String s, int start, int end) {
+        if (start >= end)
+            return true;
+
+        if (s.charAt(start) != s.charAt(end))
+            return false;
+
+        return recursiveCheck(s, start + 1, end - 1);
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         System.out.print("Enter a string: ");
         String input = sc.nextLine();
 
-        System.out.println("1. Stack Strategy");
-        System.out.println("2. Deque Strategy");
-        int choice = sc.nextInt();
+        long start1 = System.nanoTime();
+        boolean r1 = stackCheck(input);
+        long end1 = System.nanoTime();
 
-        PalindromeStrategy strategy;
+        long start2 = System.nanoTime();
+        boolean r2 = dequeCheck(input);
+        long end2 = System.nanoTime();
 
-        if (choice == 1)
-            strategy = new StackStrategy();
-        else
-            strategy = new DequeStrategy();
+        long start3 = System.nanoTime();
+        boolean r3 = recursiveCheck(input, 0, input.length() - 1);
+        long end3 = System.nanoTime();
 
-        if (strategy.check(input))
-            System.out.println("Palindrome");
-        else
-            System.out.println("Not Palindrome");
+        System.out.println("Stack Result: " + (r1 ? "Palindrome" : "Not Palindrome"));
+        System.out.println("Stack Time: " + (end1 - start1) + " ns");
+
+        System.out.println("Deque Result: " + (r2 ? "Palindrome" : "Not Palindrome"));
+        System.out.println("Deque Time: " + (end2 - start2) + " ns");
+
+        System.out.println("Recursive Result: " + (r3 ? "Palindrome" : "Not Palindrome"));
+        System.out.println("Recursive Time: " + (end3 - start3) + " ns");
 
         sc.close();
     }
 }
+
