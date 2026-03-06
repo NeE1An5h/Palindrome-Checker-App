@@ -1,19 +1,36 @@
 import java.util.*;
 
-class PalindromeChecker {
-    boolean checkPalindrome(String input) {
+interface PalindromeStrategy {
+    boolean check(String s);
+}
+
+class StackStrategy implements PalindromeStrategy {
+    public boolean check(String s) {
         Stack<Character> stack = new Stack<>();
-        String reversed = "";
+        String rev = "";
 
-        for (int i = 0; i < input.length(); i++) {
-            stack.push(input.charAt(i));
-        }
+        for (int i = 0; i < s.length(); i++)
+            stack.push(s.charAt(i));
 
-        while (!stack.isEmpty()) {
-            reversed += stack.pop();
-        }
+        while (!stack.isEmpty())
+            rev += stack.pop();
 
-        return input.equals(reversed);
+        return s.equals(rev);
+    }
+}
+
+class DequeStrategy implements PalindromeStrategy {
+    public boolean check(String s) {
+        Deque<Character> deque = new ArrayDeque<>();
+
+        for (int i = 0; i < s.length(); i++)
+            deque.addLast(s.charAt(i));
+
+        while (deque.size() > 1)
+            if (deque.removeFirst() != deque.removeLast())
+                return false;
+
+        return true;
     }
 }
 
@@ -24,9 +41,18 @@ public class Palindrome {
         System.out.print("Enter a string: ");
         String input = sc.nextLine();
 
-        PalindromeChecker pc = new PalindromeChecker();
+        System.out.println("1. Stack Strategy");
+        System.out.println("2. Deque Strategy");
+        int choice = sc.nextInt();
 
-        if (pc.checkPalindrome(input))
+        PalindromeStrategy strategy;
+
+        if (choice == 1)
+            strategy = new StackStrategy();
+        else
+            strategy = new DequeStrategy();
+
+        if (strategy.check(input))
             System.out.println("Palindrome");
         else
             System.out.println("Not Palindrome");
